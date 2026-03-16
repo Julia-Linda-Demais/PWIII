@@ -33,14 +33,46 @@ function buscarPorQuestaoBasica (questao) {
 }
 
 function buscarPorQuestaoVestibular (questao) {
-    return listaVestibular.filter(exercicio => exercicio.questao == questao)
+    return listaVestibular.filter(exercicio => exercicio.questao.toString().includes(questao))
 }
 
 app.get('/', (req, res) => {
     res.send({listaBasica, listaVestibular})
 })
 
-/*app.get('/exerc1', (req, res) => {
+//Params
+app.get('/exerc/params/basica/:questao', (req, res) => {
+   res.send(buscarPorQuestaoBasica(req.params.questao))
+})
+
+app.get('/exerc/params/vestibular/:questao', (req, res) => {
+   res.send(buscarPorQuestaoVestibular(req.params.questao))
+})
+
+//Query
+app.get('/exerc/query/basica', (req, res) => {
+    const { questao } = req.query;
+    res.send(buscarPorQuestaoBasica(questao));
+})
+
+app.get('/exerc/query/vestibular', (req, res) => {
+    const { questao } = req.query;
+    res.send(buscarPorQuestaoVestibular(questao));
+})
+
+//Body
+app.get('/exerc/body/basica', (req, res) => {
+    const { questao } = req.body;
+    res.send(buscarPorQuestaoBasica(questao));
+})
+
+app.get('/exerc/body/vestibular', (req, res) => {
+    const { questao } = req.body;
+    res.send(buscarPorQuestaoVestibular(questao));
+})
+
+// resposta sem entrada, só com resposta pelo próprio json
+app.get('/exerc1', (req, res) => {
    let exerc1 = {
         questao: 1,
         descricao: '8 ^ 2',
@@ -51,14 +83,6 @@ app.get('/', (req, res) => {
         }
    }
    res.json(exerc1)
-}) */
-
-app.get('/exerc/:questao', (req, res) => {
-   res.send(buscarPorQuestaoBasica(req.params.questao))
-})
-
-app.get('/exerc/:questao', (req, res) => {
-   res.send(buscarPorQuestaoVestibular(req.params.questao))
 })
 
 app.get('/exerc2', (req, res) => {
