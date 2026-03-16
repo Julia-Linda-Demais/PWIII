@@ -61,12 +61,12 @@ app.get('/exerc/query/vestibular', (req, res) => {
 })
 
 //Body
-app.get('/exerc/body/basica', (req, res) => {
+app.post('/exerc/body/basica', (req, res) => {
     const { questao } = req.body;
     res.send(buscarPorQuestaoBasica(questao));
 })
 
-app.get('/exerc/body/vestibular', (req, res) => {
+app.post('/exerc/body/vestibular', (req, res) => {
     const { questao } = req.body;
     res.send(buscarPorQuestaoVestibular(questao));
 })
